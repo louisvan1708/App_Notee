@@ -1,6 +1,8 @@
 package com.example.app_note.Adapter;
 
+
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +10,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.app_note.MainActivity2;
 import com.example.app_note.Model.Note;
 import com.example.app_note.R;
 
 import java.util.List;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
@@ -29,6 +36,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public void setData(List<Note> list){
         this.listNote = list;
         notifyDataSetChanged();
+
     }
 
     @NonNull
@@ -47,15 +55,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.tvDate.setText("Ngày giờ: "+note.getNgayGio());
         holder.tvNote.setText("Ghi chú: "+note.getGhichuNote());
         holder.tvPickColor.setText("Pick Note: "+note.getPickMau());
-
+//        holder.cardPickColor.setBackgroundColor(defaultColor);
     }
 
     @Override
     public int getItemCount() {
-        if (listNote != null){
-            return listNote.size();
-        }
-        return 0;
+        return this.listNote.size();
     }
 
     public class NoteViewHolder extends RecyclerView.ViewHolder {
@@ -64,7 +69,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         private TextView tvNote;
         private TextView tvDate;
         private TextView tvPickColor;
-
+        private TextView tvPC;
+        private int defaultColor;
+        CardView cardPickColor;
 
 
         public NoteViewHolder(@NonNull View itemView) {
@@ -73,7 +80,28 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             tvNote = (TextView) itemView.findViewById(R.id.tvNote);
             tvDate = (TextView) itemView.findViewById(R.id.tvDate);
             tvPickColor = (TextView) itemView.findViewById(R.id.tvPickColor);
+            cardPickColor = itemView.findViewById(R.id.cardPickColor);
+            tvPC = itemView.findViewById(R.id.tvPC);
 
+            defaultColor = ContextCompat.getColor(context, com.google.android.material.R.color.design_default_color_primary);
+
+            tvPC.setOnClickListener(view -> {
+                AmbilWarnaDialog ambilWarnaDialog = new AmbilWarnaDialog(context, defaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                    @Override
+                    public void onCancel(AmbilWarnaDialog dialog) {
+
+                    }
+
+                    @Override
+                    public void onOk(AmbilWarnaDialog dialog, int color) {
+                        defaultColor = color;
+                        cardPickColor.setBackgroundColor(defaultColor);
+                    }
+                });
+                ambilWarnaDialog.show();
+            });
+
+          //  cardPickColor= itemView.findViewById(R.id.cardPickColor);
 
 
         }
