@@ -6,7 +6,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.app_note"
+        applicationId "com.bird.collection"
         minSdk 21
         targetSdk 32
         versionCode 1
@@ -28,9 +28,16 @@ android {
 }
 
 dependencies {
+
     implementation "androidx.room:room-runtime:2.4.3"
     annotationProcessor "androidx.room:room-compiler:2.4.3"
     implementation 'com.github.yukuku:ambilwarna:2.0.1'
+
+    implementation "com.android.billingclient:billing:5.0.0"
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'

@@ -18,7 +18,7 @@ public interface NoteDAO {
     List<Note> getListNote();
 
     @Query("SELECT * FROM note WHERE ngayGio LIKE '%' || :time || '%'")
-    List<Note> calenderNote(int time);
+    List<Note> calenderNote(String time);
 
 
 
